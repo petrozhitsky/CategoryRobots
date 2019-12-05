@@ -37,7 +37,7 @@ class ChangeMetaTags implements ObserverInterface
     public function execute(\Magento\Framework\Event\Observer $observer)
     {
         $layoutarray = $observer->getData('layout')->getUpdate()->getHandles();
-        if ($layoutarray[1] == 'catalog_category_view') {
+        if (is_array($layoutarray) && in_array("catalog_category_view", $layoutarray)) {
             $uri = $this->urlInterface->getCurrentUrl();
             if (stristr($uri, '?')) {
                 $this->pageConfig->setRobots('NOINDEX, FOLLOW');
